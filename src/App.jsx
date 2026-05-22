@@ -48,6 +48,10 @@ export default function App() {
 
   useEffect(() => {
     localStorage.removeItem("fc26-selector-state");
+    // Limpiar cache de fotos de versiones anteriores (v3 y anteriores)
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith("player-photo:") && !k.startsWith("player-photo:v4:"))
+      .forEach((k) => localStorage.removeItem(k));
   }, []);
 
   useEffect(() => {
