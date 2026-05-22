@@ -193,9 +193,15 @@ function contextLooksRight(player, context = "") {
   return sportMatches || clubMatches || countryMatches;
 }
 
+function fetchWithTimeout(url, ms = 8000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
 async function fetchImageAsDataUrl(url) {
   try {
-    const resp = await fetch(url);
+    const resp = await fetchWithTimeout(url);
     if (!resp.ok) return "";
     return blobToDataUrl(await resp.blob());
   } catch {
@@ -258,7 +264,7 @@ async function fetchFromSportsDb(player) {
 
   for (const name of searchNames) {
     try {
-      const response = await fetch(
+      const response = await fetchWithTimeout(
         `https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${encodeURIComponent(name)}`
       );
       if (!response.ok) continue;
@@ -324,7 +330,7 @@ async function fetchFromWikipedia(player) {
   for (const query of queries) {
     try {
       const url = `https://en.wikipedia.org/w/api.php?action=query&origin=*&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrlimit=5&prop=pageimages|extracts&piprop=thumbnail&pithumbsize=400&exintro=1&explaintext=1&format=json`;
-      const response = await fetch(url);
+      const response = await fetchWithTimeout(url);
       if (!response.ok) continue;
 
       const data = await response.json();

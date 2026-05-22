@@ -412,7 +412,7 @@ input, select {
   overflow: hidden;
 }
 .player-card img { width: 86px; height: 86px; object-fit: cover; border-radius: 50%; margin-top: 12px; border: 2px solid rgba(255,255,255,.18); transition: opacity .3s; }
-.player-card img.photo-loading { opacity: .5; filter: blur(2px); }
+.player-card img.photo-loading { opacity: 1; }
 .player-card strong { display: block; margin-top: 9px; line-height: 1.08; }
 .player-card .rating, .player-card .pos { position: absolute; top: 10px; font-weight: 900; }
 .player-card .rating { left: 10px; color: #f5c451; font-size: 24px; }
@@ -480,6 +480,20 @@ input, select {
 .chem.high { background: #58d68d; box-shadow: 0 0 14px #58d68d; }
 .chem.mid { background: #f5c451; box-shadow: 0 0 14px #f5c451; }
 .chem.low { background: #ff6b6b; box-shadow: 0 0 14px #ff6b6b; }
+/* Foto en slot de cancha */
+.slot-photo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.25); }
+/* Botón eliminar del slot */
+.slot-remove { position: absolute; top: 2px; right: 2px; background: rgba(239,68,68,.8); border: none; border-radius: 50%; width: 18px; height: 18px; display: grid; place-items: center; cursor: pointer; color: #fff; padding: 0; opacity: 0; transition: opacity .2s; }
+.shirt-card:hover .slot-remove, .slot-selected .slot-remove { opacity: 1; }
+/* Slot seleccionado */
+.slot-selected .shirt-card, .shirt-card.is-active { outline: 2px solid var(--team-accent,#ffd447); outline-offset: 2px; box-shadow: 0 0 16px rgba(255,212,71,.45); }
+/* Jugador de suplentes seleccionado */
+.bench-selected { outline: 2px solid var(--team-accent,#ffd447) !important; background: rgba(255,212,71,.12) !important; }
+/* Foto mini en suplentes */
+.bench-photo { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,.2); }
+/* Hint de instrucción al seleccionar */
+.pitch-hint { display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(255,212,71,.1); border: 1px solid rgba(255,212,71,.35); border-radius: 8px; padding: 8px 14px; margin: 0 0 10px; font-size: 13px; color: #ffd447; }
+.pitch-hint button { background: none; border: none; color: #ffd447; cursor: pointer; padding: 0; display: grid; place-items: center; }
 .bench {
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 8px;
@@ -669,12 +683,16 @@ input, select {
   .available-panel { max-height: none; overflow: visible; }
   .available-grid {
     max-height: 620px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .player-card { min-height: 214px; }
-  .player-card img { width: 72px; height: 72px; }
-  .player-card .rating { font-size: 20px; }
+  .player-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .player-card { min-height: 160px; padding: 8px 6px; }
+  .player-card img { width: 52px; height: 52px; margin-top: 8px; }
+  .player-card .rating { font-size: 15px; top: 7px; left: 6px; }
+  .player-card .pos { font-size: 11px; top: 7px; right: 6px; }
+  .player-card strong { font-size: 11px; margin-top: 5px; }
+  .player-card small { font-size: 10px; }
+  .meta-row { font-size: 10px; gap: 4px; margin-top: 4px; }
   .squad-group-pitch { min-height: 580px; }
   .zone-players { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
   .lineup-layout { gap: 12px; }

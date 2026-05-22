@@ -20,7 +20,7 @@ export default function PlayerCard({ player, selected, compact = false, onClick,
         <>
           <small>{player.club}</small>
           <div className="meta-row">
-            <span>{player.age} anos</span>
+            <span>{player.age} años</span>
             <span>{player.foot}</span>
             <span>{player.height}</span>
           </div>
